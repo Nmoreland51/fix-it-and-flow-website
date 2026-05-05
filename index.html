@@ -1,0 +1,769 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixIt & Flow Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #050b12;
+      --black-soft: #0a1420;
+      --black-card: #0d1a27;
+      --blue: #00A5CF;
+      --blue-deep: #006f9e;
+      --sky: #78d8f2;
+      --mint: #8af0dd;
+      --text: #f4fbff;
+      --muted: #b6c9d5;
+      --line: rgba(120, 216, 242, 0.22);
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Nunito", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(0, 165, 207, 0.25), transparent 34rem),
+        radial-gradient(circle at 80% 10%, rgba(138, 240, 221, 0.14), transparent 32rem),
+        linear-gradient(180deg, #08131e 0%, var(--black) 42%, #03070c 100%);
+      line-height: 1.6;
+      padding: 10px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      border: 10px solid transparent;
+      border-image: linear-gradient(270deg, #ff4f9a, #ffb347, #fff56a, #54f4a8, #00A5CF, #7a6cff, #ff4f9a) 1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .page {
+      overflow: hidden;
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(0, 165, 207, 0.08), rgba(0, 0, 0, 0) 28rem),
+        var(--black);
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.12;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(5, 11, 18, 0.9);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 24px;
+    }
+
+    .logo {
+      color: var(--sky);
+      font-family: "Pacifico", cursive;
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      text-shadow: 0 0 22px rgba(0, 165, 207, 0.5);
+      white-space: nowrap;
+    }
+
+    .header-logo {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .header-logo img {
+      display: block;
+      width: clamp(118px, 18vw, 168px);
+      height: auto;
+      border-radius: 6px;
+      filter: drop-shadow(0 0 18px rgba(0, 165, 207, 0.35));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .nav-links a:hover {
+      color: var(--sky);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: #001018;
+      background: linear-gradient(135deg, var(--sky), var(--blue));
+      box-shadow: 0 12px 28px rgba(0, 165, 207, 0.28);
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 16px 34px rgba(0, 165, 207, 0.38);
+    }
+
+    .button-secondary {
+      color: var(--text);
+      border-color: rgba(120, 216, 242, 0.44);
+      background: rgba(0, 165, 207, 0.08);
+    }
+
+    .button-light {
+      color: #001018;
+      background: var(--text);
+    }
+
+    .hero {
+      position: relative;
+      padding: 92px 0 86px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      bottom: 10px;
+      width: 380px;
+      height: 380px;
+      border: 1px solid rgba(120, 216, 242, 0.18);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(0, 165, 207, 0.22), transparent 58%),
+        conic-gradient(from 160deg, transparent, rgba(138, 240, 221, 0.18), transparent);
+      opacity: 0.95;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+      align-items: center;
+      gap: 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(120, 216, 242, 0.25);
+      border-radius: 999px;
+      color: var(--sky);
+      background: rgba(0, 165, 207, 0.12);
+      font-size: 0.92rem;
+      font-weight: 900;
+    }
+
+    .hero h1 {
+      max-width: 800px;
+      font-size: clamp(2.8rem, 7vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(13, 26, 39, 0.85);
+      font-size: 0.94rem;
+      font-weight: 800;
+    }
+
+    .hero-card {
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(0, 165, 207, 0.18), rgba(13, 26, 39, 0.94)),
+        var(--black-card);
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card {
+      padding: 18px;
+      border: 1px solid rgba(120, 216, 242, 0.18);
+      border-radius: var(--radius);
+      background: rgba(5, 11, 18, 0.72);
+    }
+
+    .mini-card strong {
+      display: block;
+      color: var(--sky);
+      font-size: 1.08rem;
+    }
+
+    .mini-card span {
+      color: var(--muted);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card,
+    .price-card,
+    .why-item,
+    .step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--black-card);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
+    }
+
+    .card {
+      padding: 30px;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .card:hover,
+    .price-card:hover,
+    .why-item:hover,
+    .step:hover {
+      transform: translateY(-4px);
+      border-color: rgba(120, 216, 242, 0.5);
+    }
+
+    .card-icon {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 50%;
+      color: #001018;
+      background: linear-gradient(135deg, var(--mint), var(--blue));
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .card h3,
+    .price-card h3 {
+      margin-bottom: 14px;
+      font-size: 1.55rem;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 11px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .check-list li::before {
+      content: "+";
+      margin-right: 8px;
+      color: var(--mint);
+      font-weight: 900;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step {
+      position: relative;
+      padding: 24px 18px;
+      text-align: center;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      color: #001018;
+      background: var(--sky);
+      font-weight: 900;
+    }
+
+    .step h3 {
+      font-size: 1.08rem;
+    }
+
+    .pricing {
+      background: linear-gradient(180deg, rgba(0, 165, 207, 0.08), rgba(0, 165, 207, 0.02));
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .price-card {
+      padding: 26px;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .price-card.featured {
+      border-color: rgba(138, 240, 221, 0.58);
+      background: linear-gradient(180deg, rgba(0, 165, 207, 0.2), var(--black-card));
+    }
+
+    .price {
+      margin: 14px 0 10px;
+      color: var(--sky);
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .price-card p {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .pricing-note {
+      margin: 22px auto 0;
+      max-width: 780px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      background: rgba(5, 11, 18, 0.72);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .why-item {
+      padding: 18px;
+      text-align: center;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .why-item span {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.6rem;
+    }
+
+    .why-item strong {
+      display: block;
+      font-size: 0.98rem;
+      line-height: 1.25;
+    }
+
+    .cta {
+      padding: 76px 0;
+    }
+
+    .cta-panel {
+      padding: clamp(34px, 7vw, 64px);
+      border: 1px solid rgba(120, 216, 242, 0.35);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 88% 20%, rgba(138, 240, 221, 0.28), transparent 18rem),
+        linear-gradient(135deg, var(--blue-deep), var(--blue), #0b2232);
+      color: var(--text);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-panel h2 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.05;
+    }
+
+    .cta-panel p {
+      margin: 12px auto 24px;
+      max-width: 520px;
+      color: #e8fbff;
+      font-size: 1.18rem;
+      font-weight: 800;
+    }
+
+    .footer {
+      padding: 36px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: #03070c;
+      text-align: center;
+    }
+
+    .footer .logo {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.75rem;
+    }
+
+    .footer p {
+      margin: 4px 0;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 14px 18px;
+      }
+
+      .nav .button {
+        width: 100%;
+      }
+
+      .hero-grid,
+      .card-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps-grid,
+      .why-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 7px;
+      }
+
+      body::before {
+        border-width: 7px;
+      }
+
+      .container {
+        width: min(100% - 22px, 1120px);
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .hero {
+        padding: 58px 0 56px;
+      }
+
+      .header-logo img {
+        width: 132px;
+      }
+
+      .hero-actions .button {
+        width: 100%;
+      }
+
+      .badges {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .steps-grid,
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .price-card,
+      .hero-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header" id="home">
+      <nav class="container nav" aria-label="Main navigation">
+        <a class="header-logo" href="index.html" aria-label="FixIt & Flow home">
+          <img src="fixit-flow-logo.jpeg" alt="Fix-it & Flow logo">
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#services">Services</a>
+          <a href="index.html#pricing">Pricing</a>
+          <a href="about.html">About</a>
+          <a href="business-card.html">Contact</a>
+        </div>
+        <a class="button button-primary" href="business-card.html">Get a Free Quote</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">Local repairs + organized data</span>
+            <h1>Fast Phone Repairs & Simple Spreadsheet Help</h1>
+            <p>FixIt & Flow helps with cracked screens, phone issues, messy data, and custom spreadsheets - fast, affordable, and easy to understand.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="business-card.html">Get a Free Quote</a>
+              <a class="button button-secondary" href="index.html#services">View Services</a>
+            </div>
+            <div class="badges">
+              <span class="badge">Same-day repair options</span>
+              <span class="badge">Affordable pricing</span>
+              <span class="badge">Local service</span>
+            </div>
+          </div>
+
+          <div class="hero-card" aria-label="Service highlights">
+            <div class="mini-card">
+              <strong>Phone feeling rough?</strong>
+              <span>Cracked screens, charging ports, audio issues, batteries, and everyday troubleshooting.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Data looking messy?</strong>
+              <span>Clean spreadsheets, inventory trackers, customer lists, and simple templates.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Clear before work starts.</strong>
+              <span>Send the issue, get a quote, then choose the service time that works for you.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Services That Keep Life Moving</h2>
+            <p>Two practical kinds of help from one simple local business.</p>
+          </div>
+
+          <div class="card-grid">
+            <article class="card">
+              <div class="card-icon">Phone</div>
+              <h3>Phone Repair</h3>
+              <ul class="check-list">
+                <li>Screen repairs</li>
+                <li>Charging issues</li>
+                <li>Speaker/audio problems</li>
+                <li>Battery help</li>
+                <li>Basic troubleshooting</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">Data</div>
+              <h3>Data Entry & Spreadsheets</h3>
+              <ul class="check-list">
+                <li>Spreadsheet cleanup</li>
+                <li>Data entry</li>
+                <li>Inventory tracking</li>
+                <li>Customer lists</li>
+                <li>Simple business templates</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>How It Works</h2>
+            <p>A simple process from first message to finished job.</p>
+          </div>
+
+          <div class="steps-grid">
+            <article class="step">
+              <div class="step-number">1</div>
+              <h3>Send your issue</h3>
+            </article>
+            <article class="step">
+              <div class="step-number">2</div>
+              <h3>Get a quote</h3>
+            </article>
+            <article class="step">
+              <div class="step-number">3</div>
+              <h3>Schedule the service</h3>
+            </article>
+            <article class="step">
+              <div class="step-number">4</div>
+              <h3>Get it fixed or organized</h3>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pricing" id="pricing">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Pricing Preview</h2>
+            <p>Helpful starting prices so you know what to expect.</p>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="price-card">
+              <h3>Phone Repairs</h3>
+              <div class="price">From $40</div>
+              <p>Depending on the issue and phone model.</p>
+            </article>
+            <article class="price-card featured">
+              <h3>Data Entry</h3>
+              <div class="price">$15-$25/hr</div>
+              <p>For cleanup, typing, sorting, and organizing information.</p>
+            </article>
+            <article class="price-card">
+              <h3>Spreadsheet Templates</h3>
+              <div class="price">From $25</div>
+              <p>Simple trackers and business templates built around your needs.</p>
+            </article>
+          </div>
+
+          <p class="pricing-note">Final prices depend on parts, time, and difficulty. Customers receive a quote before work begins.</p>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Why Choose FixIt & Flow</h2>
+            <p>Friendly help that is clear, affordable, and built for everyday people.</p>
+          </div>
+
+          <div class="why-grid">
+            <article class="why-item"><span>1</span><strong>Fast and simple service</strong></article>
+            <article class="why-item"><span>2</span><strong>Clear quotes before work starts</strong></article>
+            <article class="why-item"><span>3</span><strong>Local and beginner-friendly</strong></article>
+            <article class="why-item"><span>4</span><strong>Affordable compared to big shops or agencies</strong></article>
+            <article class="why-item"><span>5</span><strong>Built for people and small businesses</strong></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contact">
+        <div class="container">
+          <div class="cta-panel">
+            <h2>Need a repair or spreadsheet help?</h2>
+            <p>Send your issue and get a free quote.</p>
+            <a class="button button-light" href="business-card.html">Contact FixIt & Flow</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="logo">FixIt & Flow</span>
+        <p>Phone Repairs + Data Entry</p>
+        <p>Serving local customers</p>
+        <p>&copy; 2026 FixIt & Flow. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
+
+
+
+
