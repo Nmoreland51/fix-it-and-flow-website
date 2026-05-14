@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Required mobile viewport line -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact | FixIt & Flow</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #050b12;
+      --card: #0d1a27;
+      --blue: #00A5CF;
+      --blue-deep: #006f9e;
+      --sky: #78d8f2;
+      --mint: #8af0dd;
+      --text: #f4fbff;
+      --muted: #b6c9d5;
+      --line: rgba(120, 216, 242, 0.24);
+      --radius: 8px;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 10px;
+      color: var(--text);
+      font-family: "Nunito", system-ui, sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(0, 165, 207, 0.26), transparent 34rem),
+        radial-gradient(circle at 84% 18%, rgba(138, 240, 221, 0.14), transparent 30rem),
+        linear-gradient(180deg, #08131e 0%, var(--black) 45%, #03070c 100%);
+    }
+
+    /* Neon rainbow gradient frame around the website */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      border: 10px solid transparent;
+      border-image: linear-gradient(
+        270deg,
+        #ff4f9a,
+        #ffb347,
+        #fff56a,
+        #54f4a8,
+        #00A5CF,
+        #7a6cff,
+        #ff4f9a
+      ) 1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      overflow: hidden;
+      min-height: calc(100vh - 20px);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(0, 165, 207, 0.08), rgba(0, 0, 0, 0) 30rem),
+        var(--black);
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(5, 11, 18, 0.9);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 24px;
+    }
+
+    .header-logo {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .header-logo img {
+      display: block;
+      width: clamp(118px, 18vw, 168px);
+      height: auto;
+      border-radius: 6px;
+      filter: drop-shadow(0 0 18px rgba(0, 165, 207, 0.35));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .nav-links a:hover,
+    .nav-links .active {
+      color: var(--sky);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      color: #001018;
+      background: linear-gradient(135deg, var(--sky), var(--blue));
+      box-shadow: 0 12px 28px rgba(0, 165, 207, 0.28);
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(0, 165, 207, 0.38);
+    }
+
+    .hero {
+      padding: 88px 0 46px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(120, 216, 242, 0.25);
+      border-radius: 999px;
+      color: var(--sky);
+      background: rgba(0, 165, 207, 0.12);
+      font-size: 0.92rem;
+      font-weight: 900;
+    }
+
+    h1 {
+      max-width: 900px;
+      font-size: clamp(2.7rem, 7vw, 5.6rem);
+      line-height: 1;
+    }
+
+    .hero-text {
+      max-width: 760px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 52px 0;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .contact-card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card h3 {
+      margin-bottom: 10px;
+      color: var(--sky);
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .contact-card p,
+    .contact-card a {
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .contact-card a:hover {
+      color: var(--mint);
+    }
+
+    .cta-panel {
+      padding: clamp(34px, 7vw, 62px);
+      border: 1px solid rgba(120, 216, 242, 0.35);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 88% 20%, rgba(138, 240, 221, 0.28), transparent 18rem),
+        linear-gradient(135deg, var(--blue-deep), var(--blue), #0b2232);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-panel h2 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      line-height: 1.05;
+    }
+
+    .cta-panel p {
+      max-width: 620px;
+      margin: 12px auto 24px;
+      color: #e8fbff;
+      font-size: 1.16rem;
+      font-weight: 800;
+    }
+
+    .button-light {
+      color: #001018;
+      background: var(--text);
+    }
+
+    .footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: #03070c;
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--sky);
+      font-family: "Pacifico", cursive;
+      font-size: 1.75rem;
+      text-shadow: 0 0 22px rgba(0, 165, 207, 0.5);
+    }
+
+    .footer p {
+      margin: 4px 0;
+    }
+
+    /* Tablet and phone responsive fixes */
+    @media (max-width: 900px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 14px 18px;
+      }
+
+      .nav .button {
+        width: 100%;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 7px;
+      }
+
+      body::before {
+        border-width: 7px;
+      }
+
+      .container {
+        width: min(100% - 22px, 1120px);
+      }
+
+      .hero {
+        padding: 58px 0 36px;
+      }
+
+      .section {
+        padding: 42px 0;
+      }
+
+      .header-logo img {
+        width: 132px;
+      }
+
+      .nav-links a {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+      }
+
+      .button,
+      .button-light {
+        width: 100%;
+        min-height: 52px;
+        text-align: center;
+      }
+
+      .contact-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="site-header">
+      <nav class="container nav" aria-label="Main navigation">
+        <a class="header-logo" href="index.html" aria-label="FixIt & Flow home">
+          <img src="fixit-flow-logo.jpeg" alt="Fix-it & Flow logo">
+        </a>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="services.html#pricing">Pricing</a>
+          <a href="about.html">About</a>
+          <a class="active" href="contact.html">Contact</a>
+        </div>
+
+        <a class="button" href="mailto:Nmoreland51@gmail.com">Get a Free Quote</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <span class="eyebrow">Contact FixIt & Flow</span>
+          <h1>Ready to book, ask a question, or get a free quote?</h1>
+          <p class="hero-text">
+            Reach out to FixIt & Flow for phone repair help, basic troubleshooting, data entry, spreadsheet cleanup, or simple business templates.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Contact Information</h2>
+            <p>Here is the main information customers need before reaching out.</p>
+          </div>
+
+          <div class="contact-grid">
+
+            <article class="contact-card">
+              <h3>Business Name</h3>
+              <p>Fix It Flow</p>
+            </article>
+
+            <article class="contact-card">
+              <h3>Email Address</h3>
+              <p>
+                <a href="mailto:Nmoreland51@gmail.com">
+                  Nmoreland51@gmail.com
+                </a>
+              </p>
+            </article>
+
+            <article class="contact-card">
+              <h3>Service Area</h3>
+              <p>Serving your local area</p>
+            </article>
+
+            <article class="contact-card">
+              <h3>Business Hours</h3>
+              <p>By appointment only</p>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-panel">
+            <h2>Ready to get started?</h2>
+            <p>
+              Send your phone issue, spreadsheet project, or question and get a clear answer before any work begins.
+            </p>
+
+            <a class="button button-light" href="mailto:Nmoreland51@gmail.com">
+              Email Me Now
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="footer-logo">FixIt & Flow</span>
+        <p>Phone Repairs + Data Entry</p>
+        <p>Serving your local area</p>
+        <p>&copy; 2026 FixIt & Flow. All rights reserved.</p>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
