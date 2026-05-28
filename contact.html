@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="quote-form.css">
 
   <style>
     :root {
@@ -115,8 +116,7 @@
       display: block;
       width: clamp(118px, 18vw, 168px);
       height: auto;
-      border-radius: 50%;
-      object-fit: cover;
+      border-radius: 6px;
       filter: drop-shadow(0 0 18px rgba(0, 165, 207, 0.35));
     }
 
@@ -238,281 +238,6 @@
       color: var(--mint);
     }
 
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .info-stack {
-      display: grid;
-      gap: 16px;
-    }
-
-    .contact-layout .contact-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .quote-form {
-      scroll-margin-top: 112px;
-      padding: 28px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(145deg, rgba(0, 165, 207, 0.13), rgba(13, 26, 39, 0.97)),
-        var(--card);
-      box-shadow: var(--shadow);
-    }
-
-    .form-heading {
-      margin-bottom: 22px;
-    }
-
-    .form-heading h2 {
-      margin-bottom: 8px;
-      font-size: clamp(1.8rem, 4vw, 2.55rem);
-      line-height: 1.08;
-    }
-
-    .form-heading p {
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .required-note,
-    .required-mark {
-      color: var(--mint);
-      font-weight: 900;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .form-field {
-      display: grid;
-      gap: 8px;
-    }
-
-    .form-field.full {
-      grid-column: 1 / -1;
-    }
-
-    label,
-    legend {
-      color: var(--text);
-      font-size: 0.98rem;
-      font-weight: 900;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      min-height: 50px;
-      border: 1px solid rgba(120, 216, 242, 0.22);
-      border-radius: var(--radius);
-      padding: 13px 14px;
-      color: var(--text);
-      background: rgba(5, 11, 18, 0.78);
-      font: inherit;
-      font-weight: 700;
-      outline: none;
-      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
-    }
-
-    textarea {
-      min-height: 132px;
-      resize: vertical;
-    }
-
-    select {
-      appearance: none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, var(--sky) 50%),
-        linear-gradient(135deg, var(--sky) 50%, transparent 50%);
-      background-position:
-        calc(100% - 20px) 21px,
-        calc(100% - 14px) 21px;
-      background-size: 6px 6px;
-      background-repeat: no-repeat;
-      padding-right: 42px;
-    }
-
-    option {
-      color: #001018;
-      background: var(--text);
-    }
-
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      cursor: pointer;
-      filter: invert(1);
-      opacity: 0.86;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: rgba(182, 201, 213, 0.7);
-      font-weight: 700;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--sky);
-      background: rgba(3, 7, 12, 0.94);
-      box-shadow: 0 0 0 4px rgba(0, 165, 207, 0.18);
-    }
-
-    .form-field.has-error input,
-    .form-field.has-error select,
-    .form-field.has-error textarea {
-      border-color: #ff6b6b;
-      box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.16);
-    }
-
-    .field-error {
-      color: #ff8a8a;
-      font-size: 0.92rem;
-      font-weight: 800;
-      line-height: 1.35;
-    }
-
-    .field-error:empty {
-      display: none;
-    }
-
-    .form-success {
-      margin: 0 0 18px;
-      border: 1px solid rgba(138, 240, 221, 0.45);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      color: #b9fff4;
-      background: rgba(43, 201, 184, 0.14);
-      font-weight: 900;
-      line-height: 1.4;
-    }
-
-    .quote-form.is-success > :not(.form-success) {
-      display: none;
-    }
-
-    .form-success strong,
-    .form-success span {
-      display: block;
-    }
-
-    .form-success strong {
-      margin-bottom: 6px;
-      color: var(--text);
-      font-size: 1.15rem;
-    }
-
-    .form-success-button {
-      margin-top: 14px;
-      border: 0;
-      border-radius: var(--radius);
-      padding: 11px 14px;
-      color: #001018;
-      background: linear-gradient(135deg, var(--sky), var(--blue));
-      font: inherit;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .form-success[hidden] {
-      display: none;
-    }
-
-    .form-failure {
-      margin: 0 0 18px;
-      border: 1px solid rgba(255, 107, 107, 0.45);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      color: #ffd0d0;
-      background: rgba(255, 107, 107, 0.13);
-      font-weight: 900;
-      line-height: 1.4;
-    }
-
-    .form-failure[hidden] {
-      display: none;
-    }
-
-    .form-actions .button:disabled {
-      opacity: 0.7;
-      cursor: wait;
-    }
-
-    .choice-group {
-      grid-column: 1 / -1;
-      border: 0;
-    }
-
-    .choice-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .choice-option {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 44px;
-      padding: 10px 12px;
-      border: 1px solid rgba(120, 216, 242, 0.22);
-      border-radius: var(--radius);
-      color: var(--muted);
-      background: rgba(5, 11, 18, 0.64);
-      font-weight: 900;
-      cursor: pointer;
-      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
-    }
-
-    .choice-option input {
-      width: 18px;
-      height: 18px;
-      min-height: 0;
-      padding: 0;
-      box-shadow: none;
-      accent-color: var(--blue);
-      cursor: pointer;
-    }
-
-    .choice-option:has(input:checked),
-    .choice-option:hover {
-      border-color: rgba(138, 240, 221, 0.62);
-      color: var(--text);
-      background: rgba(0, 165, 207, 0.14);
-    }
-
-    .form-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      margin-top: 22px;
-    }
-
-    .form-actions .button {
-      min-width: 190px;
-      border: 0;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 1rem;
-    }
-
-    .form-note {
-      color: var(--muted);
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
     .cta-panel {
       padding: clamp(34px, 7vw, 62px);
       border: 1px solid rgba(120, 216, 242, 0.35);
@@ -584,10 +309,6 @@
       .contact-grid {
         grid-template-columns: 1fr;
       }
-
-      .contact-layout {
-        grid-template-columns: 1fr;
-      }
     }
 
     @media (max-width: 560px) {
@@ -604,15 +325,40 @@
       }
 
       .hero {
-        padding: 58px 0 36px;
+        padding: 42px 0 34px;
       }
 
       .section {
-        padding: 42px 0;
+        padding: 38px 0;
+      }
+
+      .nav {
+        gap: 14px;
+        min-height: auto;
+      }
+
+      .nav-links {
+        justify-content: space-between;
+        gap: 8px 12px;
+        font-size: 0.95rem;
       }
 
       .header-logo img {
-        width: 132px;
+        width: 112px;
+      }
+
+      .eyebrow {
+        font-size: 0.86rem;
+      }
+
+      h1 {
+        font-size: clamp(2.15rem, 10vw, 3rem);
+        line-height: 1.05;
+      }
+
+      .hero-text {
+        font-size: 1.02rem;
+        line-height: 1.6;
       }
 
       .nav-links a {
@@ -631,22 +377,6 @@
       .contact-card {
         padding: 22px;
       }
-
-      .quote-form {
-        padding: 22px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .choice-options {
-        flex-direction: column;
-      }
-
-      .form-actions .button {
-        width: 100%;
-      }
     }
   </style>
 </head>
@@ -656,12 +386,12 @@
 
     <header class="site-header">
       <nav class="container nav" aria-label="Main navigation">
-        <a class="header-logo" href="homepage with logo.html" aria-label="FixIt & Flow home">
+        <a class="header-logo" href="index.html" aria-label="FixIt & Flow home">
           <img src="fixit-flow-logo.jpeg" alt="Fix-it & Flow logo">
         </a>
 
         <div class="nav-links">
-          <a href="homepage with logo.html">Home</a>
+          <a href="index.html">Home</a>
           <a href="services.html">Services</a>
           <a href="services.html#pricing">Pricing</a>
           <a href="about.html">About</a>
@@ -690,119 +420,131 @@
             <p>Here is the main information customers need before reaching out.</p>
           </div>
 
-          <div class="contact-layout">
-            <div class="info-stack">
-              <div class="contact-grid">
+          <div class="contact-grid">
 
-                <article class="contact-card">
-                  <h3>Business Name</h3>
-                  <p>FixIt & Flow</p>
-                </article>
+            <article class="contact-card">
+              <h3>Business Name</h3>
+              <p>Fix It Flow</p>
+            </article>
 
-                <article class="contact-card">
-                  <h3>Email Address</h3>
-                  <p>
-                    <a href="mailto:Nmoreland51@gmail.com">
-                      Nmoreland51@gmail.com
-                    </a>
-                  </p>
-                </article>
+            <article class="contact-card">
+              <h3>Email Address</h3>
+              <p>
+                <a href="mailto:Nmoreland51@gmail.com">
+                  Nmoreland51@gmail.com
+                </a>
+              </p>
+            </article>
 
-                <article class="contact-card">
-                  <h3>Service Area</h3>
-                  <p>Serving your local area</p>
-                </article>
+            <article class="contact-card">
+              <h3>Service Area</h3>
+              <p>Serving your local area</p>
+            </article>
 
-                <article class="contact-card">
-                  <h3>Business Hours</h3>
-                  <p>By appointment only</p>
-                </article>
+            <article class="contact-card">
+              <h3>Business Hours</h3>
+              <p>By appointment only</p>
+            </article>
 
+          </div>
+        </div>
+      </section>
+
+      <section class="quote-section" id="quote-request">
+        <div class="container quote-shell">
+          <div class="quote-intro">
+            <h2>Request a Free Quote</h2>
+            <p>Tell FixIt & Flow what you need help with, then get a clear answer before any work begins.</p>
+            <ul class="quote-points">
+              <li>Phone repair help</li>
+              <li>Spreadsheet cleanup</li>
+              <li>Data entry support</li>
+              <li>Simple business templates</li>
+            </ul>
+          </div>
+
+          <form class="site-quote-form" action="https://formsubmit.co/Nmoreland51@gmail.com" method="post" novalidate>
+            <input type="hidden" name="_subject" value="New FixIt & Flow quote request">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+
+            <div class="quote-form-heading">
+              <h2>Start Your Request</h2>
+              <p><span class="required-note">*</span> Required fields</p>
+            </div>
+
+            <div class="quote-form-grid">
+              <div class="quote-field">
+                <label for="contact-fullname">Full Name <span class="required-mark">*</span></label>
+                <input type="text" id="contact-fullname" name="Full Name" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="quote-field">
+                <label for="contact-email">Email Address <span class="required-mark">*</span></label>
+                <input type="email" id="contact-email" name="Email Address" placeholder="you@example.com" required>
+              </div>
+
+              <div class="quote-field">
+                <label for="contact-phone">Phone Number <span class="required-mark">*</span></label>
+                <input type="tel" id="contact-phone" name="Phone Number" placeholder="(555) 123-4567" required>
+              </div>
+
+              <div class="quote-field">
+                <label for="contact-service">Select Service Type <span class="required-mark">*</span></label>
+                <select id="contact-service" name="Service Type" required>
+                  <option value="">Choose an option...</option>
+                  <option value="Phone repair">Phone Repair</option>
+                  <option value="Data entry">Data Entry</option>
+                  <option value="Spreadsheet cleanup">Spreadsheet Cleanup</option>
+                  <option value="Business template">Simple Business Template</option>
+                  <option value="Not sure">Not Sure Yet</option>
+                </select>
+              </div>
+
+              <div class="quote-field">
+                <label for="contact-date">Preferred Date</label>
+                <input type="date" id="contact-date" name="Preferred Date">
+              </div>
+
+              <div class="quote-field">
+                <label for="contact-time">Preferred Time Slot</label>
+                <select id="contact-time" name="Preferred Time Slot">
+                  <option value="">Choose a time...</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="Evening">Evening</option>
+                </select>
+              </div>
+
+              <fieldset class="quote-choice-group">
+                <legend>Best Way to Contact You</legend>
+                <div class="quote-choice-options">
+                  <label class="quote-choice-option" for="contact-method-email">
+                    <input type="radio" id="contact-method-email" name="Preferred Contact Method" value="Email" checked>
+                    Email
+                  </label>
+                  <label class="quote-choice-option" for="contact-method-phone">
+                    <input type="radio" id="contact-method-phone" name="Preferred Contact Method" value="Phone">
+                    Phone
+                  </label>
+                  <label class="quote-choice-option" for="contact-method-text">
+                    <input type="radio" id="contact-method-text" name="Preferred Contact Method" value="Text">
+                    Text
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="quote-field full">
+                <label for="contact-message">Project Details or Phone Issue <span class="required-mark">*</span></label>
+                <textarea id="contact-message" name="Project Details or Phone Issue" rows="5" placeholder="Tell us what needs to be fixed, cleaned up, or organized..." required></textarea>
               </div>
             </div>
 
-            <form class="quote-form" id="quote-request" action="https://formsubmit.co/Nmoreland51@gmail.com" method="post" novalidate>
-              <input type="hidden" name="_subject" value="New FixIt & Flow quote request">
-              <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_captcha" value="false">
-              <div class="form-heading">
-                <h2>Request a Free Quote</h2>
-                <p><span class="required-note">*</span> Required fields</p>
-              </div>
-
-              <div class="form-grid">
-                <div class="form-field">
-                  <label for="fullname">Full Name <span class="required-mark">*</span></label>
-                  <input type="text" id="fullname" name="Full Name" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-field">
-                  <label for="email">Email Address <span class="required-mark">*</span></label>
-                  <input type="email" id="email" name="Email Address" placeholder="you@example.com" required>
-                </div>
-
-                <div class="form-field">
-                  <label for="phone">Phone Number <span class="required-mark">*</span></label>
-                  <input type="tel" id="phone" name="Phone Number" placeholder="(555) 123-4567" required>
-                </div>
-
-                <div class="form-field">
-                  <label for="service">Select Service Type <span class="required-mark">*</span></label>
-                  <select id="service" name="Service Type" required>
-                    <option value="">Choose an option...</option>
-                    <option value="Phone repair">Phone Repair</option>
-                    <option value="Data entry">Data Entry</option>
-                    <option value="Spreadsheet cleanup">Spreadsheet Cleanup</option>
-                    <option value="Business template">Simple Business Template</option>
-                    <option value="Not sure">Not Sure Yet</option>
-                  </select>
-                </div>
-
-                <div class="form-field">
-                  <label for="preferred-date">Preferred Date</label>
-                  <input type="date" id="preferred-date" name="Preferred Date">
-                </div>
-
-                <div class="form-field">
-                  <label for="preferred-time">Preferred Time Slot</label>
-                  <select id="preferred-time" name="Preferred Time Slot">
-                    <option value="">Choose a time...</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Afternoon">Afternoon</option>
-                    <option value="Evening">Evening</option>
-                  </select>
-                </div>
-
-                <fieldset class="choice-group">
-                  <legend>Best Way to Contact You</legend>
-                  <div class="choice-options">
-                    <label class="choice-option" for="contact-email">
-                      <input type="radio" id="contact-email" name="Preferred Contact Method" value="Email" checked>
-                      Email
-                    </label>
-                    <label class="choice-option" for="contact-phone">
-                      <input type="radio" id="contact-phone" name="Preferred Contact Method" value="Phone">
-                      Phone
-                    </label>
-                    <label class="choice-option" for="contact-text">
-                      <input type="radio" id="contact-text" name="Preferred Contact Method" value="Text">
-                      Text
-                    </label>
-                  </div>
-                </fieldset>
-
-                <div class="form-field full">
-                  <label for="message">Project Details or Phone Issue <span class="required-mark">*</span></label>
-                  <textarea id="message" name="Project Details or Phone Issue" rows="5" placeholder="Tell us what needs to be fixed, cleaned up, or organized..." required></textarea>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="button" type="submit">Request Quote</button>
-                <p class="form-note">You will receive a clear quote before any work begins.</p>
-              </div>
-            </form>
-          </div>
+            <div class="quote-form-actions">
+              <button class="button quote-submit" type="submit">Request Quote</button>
+              <p class="quote-form-note">You will receive a clear quote before any work begins.</p>
+            </div>
+          </form>
         </div>
       </section>
 
