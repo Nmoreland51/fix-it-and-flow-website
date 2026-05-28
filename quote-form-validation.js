@@ -118,7 +118,28 @@
     return failure;
   }
 
-  function showSuccess(form) {
+  function getSubmittedDetails(form) {
+    const formData = new FormData(form);
+    const fields = [
+      ["Full Name", "Full Name"],
+      ["Email Address", "Email Address"],
+      ["Phone Number", "Phone Number"],
+      ["Service Type", "Service Type"],
+      ["Preferred Date", "Preferred Date"],
+      ["Preferred Time Slot", "Preferred Time"],
+      ["Preferred Contact Method", "Preferred Contact"],
+      ["Project Details or Phone Issue", "Project Details"]
+    ];
+
+    return fields
+      .map(([name, label]) => ({
+        label,
+        value: (formData.get(name) || "").toString().trim()
+      }))
+      .filter((field) => field.value);
+  }
+
+  function showSuccess(form, submittedDetails) {
     const success = getSuccessElement(form);
     const submitAgain = document.createElement("button");
 
@@ -129,8 +150,23 @@
     const title = document.createElement("strong");
     title.textContent = "Quote Request Submitted!";
 
-    const message = document.createElement("span");
-    message.textContent = " Thank you for reaching out to FixIt & Flow. Your request has been received, and we will follow up soon with the next steps.";
+    const message = document.createElement("p");
+    message.textContent = "Thank you for reaching out to FixIt & Flow. Here is what you submitted:";
+
+    const summary = document.createElement("dl");
+    summary.className = "form-success-summary";
+
+    submittedDetails.forEach((field) => {
+      const term = document.createElement("dt");
+      const description = document.createElement("dd");
+
+      term.textContent = field.label;
+      description.textContent = field.value;
+      summary.append(term, description);
+    });
+
+    const nextSteps = document.createElement("p");
+    nextSteps.textContent = "We will follow up soon with the next steps.";
 
     submitAgain.type = "button";
     submitAgain.className = "form-success-button";
@@ -144,7 +180,7 @@
       }
     });
 
-    success.append(title, message, submitAgain);
+    success.append(title, message, summary, nextSteps, submitAgain);
     success.focus();
   }
 
@@ -187,13 +223,11 @@
 
   function getPayload(form) {
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-    const customerEmail = payload["Email Address"] || "";
+    const payload = Object.fromEntries(
+      getSubmittedDetails(form).map((field) => [field.label, field.value])
+    );
+    const customerEmail = (formData.get("Email Address") || "").toString().trim();
 
-    payload.name = payload["Full Name"] || "";
-    payload.email = customerEmail;
-    payload.phone = payload["Phone Number"] || "";
-    payload.message = payload["Project Details or Phone Issue"] || "";
     payload._replyto = customerEmail;
     payload._subject = "New FixIt & Flow quote request";
     payload._template = "table";
@@ -293,12 +327,14 @@
       }
 
       try {
+        const submittedDetails = getSubmittedDetails(form);
+
         clearFailure(form);
         setSubmitting(form, true);
         await sendForm(form);
         controls.forEach(clearError);
         form.reset();
-        showSuccess(form);
+        showSuccess(form, submittedDetails);
       } catch (error) {
         showFailure(form);
       } finally {
