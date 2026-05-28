@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="quote-form.css">
   <style>
     :root {
       --black: #050b12;
@@ -99,7 +100,8 @@
       display: block;
       width: clamp(118px, 18vw, 168px);
       height: auto;
-      border-radius: 6px;
+      border-radius: 50%;
+      object-fit: cover;
       filter: drop-shadow(0 0 18px rgba(0, 165, 207, 0.35));
     }
 
@@ -331,7 +333,8 @@
     .logo-panel img {
       width: min(260px, 76%);
       height: auto;
-      border-radius: 8px;
+      border-radius: 50%;
+      object-fit: cover;
       filter: drop-shadow(0 0 24px rgba(0, 165, 207, 0.34));
     }
 
@@ -447,40 +450,15 @@
       }
 
       .hero {
-        padding: 42px 0 34px;
+        padding: 58px 0 36px;
       }
 
       .section {
-        padding: 38px 0;
-      }
-
-      .nav {
-        gap: 14px;
-        min-height: auto;
-      }
-
-      .nav-links {
-        justify-content: space-between;
-        gap: 8px 12px;
-        font-size: 0.95rem;
+        padding: 42px 0;
       }
 
       .header-logo img {
-        width: 112px;
-      }
-
-      .eyebrow {
-        font-size: 0.86rem;
-      }
-
-      h1 {
-        font-size: clamp(2.15rem, 10vw, 3rem);
-        line-height: 1.05;
-      }
-
-      .hero-text {
-        font-size: 1.02rem;
-        line-height: 1.6;
+        width: 132px;
       }
     }
   </style>
@@ -489,17 +467,17 @@
   <div class="page">
     <header class="site-header">
       <nav class="container nav" aria-label="Main navigation">
-        <a class="header-logo" href="index.html" aria-label="FixIt & Flow home">
+        <a class="header-logo" href="homepage with logo.html" aria-label="FixIt & Flow home">
           <img src="fixit-flow-logo.jpeg" alt="Fix-it & Flow logo">
         </a>
         <div class="nav-links">
-          <a href="index.html">Home</a>
+          <a href="homepage with logo.html">Home</a>
           <a href="services.html">Services</a>
           <a href="services.html#pricing">Pricing</a>
           <a class="active" href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </div>
-        <a class="button" href="https://nmoreland51.github.io/my-business-card/">Get a Free Quote</a>
+        <a class="button" href="#quote-request">Get a Free Quote</a>
       </nav>
     </header>
 
@@ -594,13 +572,100 @@
         </div>
       </section>
 
-      <section class="section">
-        <div class="container">
-          <div class="cta-panel">
-            <h2>Need a repair or spreadsheet help?</h2>
-            <p>Ready to get started? Send your issue, ask a question, or request a free quote from FixIt & Flow.</p>
-            <a class="button button-light" href="https://nmoreland51.github.io/my-business-card/">Contact FixIt & Flow</a>
+      <section class="quote-section" id="quote-request">
+        <div class="container quote-shell">
+          <div class="quote-intro">
+            <h2>Request a Free Quote</h2>
+            <p>Tell FixIt & Flow what you need help with, then get a clear answer before any work begins.</p>
+            <ul class="quote-points">
+              <li>Phone repair help</li>
+              <li>Spreadsheet cleanup</li>
+              <li>Data entry projects</li>
+              <li>Simple business templates</li>
+            </ul>
           </div>
+
+          <form class="site-quote-form" action="https://formsubmit.co/Nmoreland51@gmail.com" method="post" novalidate>
+            <input type="hidden" name="_subject" value="New FixIt & Flow quote request">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <div class="quote-form-heading">
+              <h2>Start Your Request</h2>
+              <p><span class="required-note">*</span> Required fields</p>
+            </div>
+
+            <div class="quote-form-grid">
+              <div class="quote-field">
+                <label for="about-fullname">Full Name <span class="required-mark">*</span></label>
+                <input type="text" id="about-fullname" name="Full Name" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="quote-field">
+                <label for="about-email">Email Address <span class="required-mark">*</span></label>
+                <input type="email" id="about-email" name="Email Address" placeholder="you@example.com" required>
+              </div>
+
+              <div class="quote-field">
+                <label for="about-phone">Phone Number <span class="required-mark">*</span></label>
+                <input type="tel" id="about-phone" name="Phone Number" placeholder="(555) 123-4567" required>
+              </div>
+
+              <div class="quote-field">
+                <label for="about-service">Select Service Type <span class="required-mark">*</span></label>
+                <select id="about-service" name="Service Type" required>
+                  <option value="">Choose an option...</option>
+                  <option value="Phone repair">Phone Repair</option>
+                  <option value="Data entry">Data Entry</option>
+                  <option value="Spreadsheet cleanup">Spreadsheet Cleanup</option>
+                  <option value="Business template">Simple Business Template</option>
+                  <option value="Not sure">Not Sure Yet</option>
+                </select>
+              </div>
+
+              <div class="quote-field">
+                <label for="about-date">Preferred Date</label>
+                <input type="date" id="about-date" name="Preferred Date">
+              </div>
+
+              <div class="quote-field">
+                <label for="about-time">Preferred Time Slot</label>
+                <select id="about-time" name="Preferred Time Slot">
+                  <option value="">Choose a time...</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="Evening">Evening</option>
+                </select>
+              </div>
+
+              <fieldset class="quote-choice-group">
+                <legend>Best Way to Contact You</legend>
+                <div class="quote-choice-options">
+                  <label class="quote-choice-option" for="about-contact-email">
+                    <input type="radio" id="about-contact-email" name="Preferred Contact Method" value="Email" checked>
+                    Email
+                  </label>
+                  <label class="quote-choice-option" for="about-contact-phone">
+                    <input type="radio" id="about-contact-phone" name="Preferred Contact Method" value="Phone">
+                    Phone
+                  </label>
+                  <label class="quote-choice-option" for="about-contact-text">
+                    <input type="radio" id="about-contact-text" name="Preferred Contact Method" value="Text">
+                    Text
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="quote-field full">
+                <label for="about-message">Project Details or Phone Issue <span class="required-mark">*</span></label>
+                <textarea id="about-message" name="Project Details or Phone Issue" rows="5" placeholder="Tell us what needs to be fixed, cleaned up, or organized..." required></textarea>
+              </div>
+            </div>
+
+            <div class="quote-form-actions">
+              <button class="button quote-submit" type="submit">Request Quote</button>
+              <p class="quote-form-note">You will receive a clear quote before any work begins.</p>
+            </div>
+          </form>
         </div>
       </section>
     </main>
@@ -614,6 +679,7 @@
       </div>
     </footer>
   </div>
+  <script src="quote-form-validation.js"></script>
 </body>
 </html>
 

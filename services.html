@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -104,7 +104,8 @@
       display: block;
       width: clamp(118px, 18vw, 168px);
       height: auto;
-      border-radius: 6px;
+      border-radius: 50%;
+      object-fit: cover;
       filter: drop-shadow(0 0 18px rgba(0, 165, 207, 0.35));
     }
 
@@ -409,40 +410,15 @@
       }
 
       .hero {
-        padding: 42px 0 34px;
+        padding: 58px 0 36px;
       }
 
       .section {
-        padding: 38px 0;
-      }
-
-      .nav {
-        gap: 14px;
-        min-height: auto;
-      }
-
-      .nav-links {
-        justify-content: space-between;
-        gap: 8px 12px;
-        font-size: 0.95rem;
+        padding: 42px 0;
       }
 
       .header-logo img {
-        width: 112px;
-      }
-
-      .eyebrow {
-        font-size: 0.86rem;
-      }
-
-      h1 {
-        font-size: clamp(2.15rem, 10vw, 3rem);
-        line-height: 1.05;
-      }
-
-      .hero-text {
-        font-size: 1.02rem;
-        line-height: 1.6;
+        width: 132px;
       }
 
       .hero-actions .button,
@@ -456,17 +432,17 @@
   <div class="page">
     <header class="site-header">
       <nav class="container nav" aria-label="Main navigation">
-        <a class="header-logo" href="index.html" aria-label="FixIt & Flow home">
+        <a class="header-logo" href="homepage with logo.html" aria-label="FixIt & Flow home">
           <img src="fixit-flow-logo.jpeg" alt="Fix-it & Flow logo">
         </a>
         <div class="nav-links">
-          <a href="index.html">Home</a>
+          <a href="homepage with logo.html">Home</a>
           <a class="active" href="services.html">Services</a>
           <a href="services.html#pricing">Pricing</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </div>
-        <a class="button" href="https://nmoreland51.github.io/my-business-card/">Get a Free Quote</a>
+        <a class="button" href="contact.html">Get a Free Quote</a>
       </nav>
     </header>
 
@@ -477,7 +453,7 @@
           <h1>Helpful phone repair and spreadsheet services in one place.</h1>
           <p class="hero-text">FixIt & Flow offers practical services for people who need their phone working again or their information organized into a clean, useful spreadsheet. Every job starts with a clear quote before work begins.</p>
           <div class="hero-actions">
-            <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request a Free Quote</a>
+            <a class="button" href="contact.html">Request a Free Quote</a>
             <a class="button button-secondary" href="#pricing">View Pricing</a>
           </div>
         </div>
@@ -503,7 +479,7 @@
                 <li>Same-day options when parts are available</li>
                 <li>Quote given before repair starts</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
 
             <article class="service-card">
@@ -518,7 +494,7 @@
                 <li>Cable and power testing</li>
                 <li>Repair price quoted after diagnosis</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
 
             <article class="service-card">
@@ -533,7 +509,7 @@
                 <li>Basic cleaning and troubleshooting</li>
                 <li>Part replacement quoted if needed</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
 
             <article class="service-card">
@@ -548,7 +524,7 @@
                 <li>Basic phone troubleshooting</li>
                 <li>Replacement parts included in final quote</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
           </div>
         </div>
@@ -574,7 +550,7 @@
                 <li>Duplicate cleanup</li>
                 <li>Clear labels and organized tabs</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
 
             <article class="service-card">
@@ -589,7 +565,7 @@
                 <li>Product or sales information</li>
                 <li>Simple records and logs</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
 
             <article class="service-card">
@@ -604,7 +580,7 @@
                 <li>Price and cost columns</li>
                 <li>Easy-to-update layout</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
 
             <article class="service-card">
@@ -619,7 +595,7 @@
                 <li>Beginner-friendly design</li>
                 <li>Helpful for repeat use</li>
               </ul>
-              <a class="button" href="https://nmoreland51.github.io/my-business-card/">Request Quote</a>
+              <a class="button" href="contact.html">Request Quote</a>
             </article>
           </div>
         </div>
@@ -659,7 +635,7 @@
           <div class="cta-panel">
             <h2>Ready to choose a service?</h2>
             <p>Send your phone issue or spreadsheet project and get a free quote from FixIt & Flow.</p>
-            <a class="button button-light" href="https://nmoreland51.github.io/my-business-card/">Contact FixIt & Flow</a>
+            <a class="button button-light" href="contact.html">Contact FixIt & Flow</a>
           </div>
         </div>
       </section>

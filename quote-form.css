@@ -1,0 +1,341 @@
+.quote-section {
+  padding: 76px 0;
+  scroll-margin-top: 112px;
+}
+
+.quote-shell {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.15fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.quote-intro,
+.site-quote-form {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card, var(--black-card, #0d1a27));
+  box-shadow: var(--shadow);
+}
+
+.quote-intro {
+  padding: clamp(24px, 5vw, 36px);
+}
+
+.quote-intro h2 {
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: clamp(1.9rem, 4vw, 2.85rem);
+  line-height: 1.1;
+}
+
+.quote-intro p {
+  color: var(--muted);
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.quote-points {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.quote-points li {
+  padding: 12px 14px;
+  border: 1px solid rgba(120, 216, 242, 0.2);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: rgba(5, 11, 18, 0.64);
+  font-weight: 800;
+}
+
+.site-quote-form {
+  padding: 28px;
+  background:
+    linear-gradient(145deg, rgba(0, 165, 207, 0.13), rgba(13, 26, 39, 0.97)),
+    var(--card, var(--black-card, #0d1a27));
+}
+
+.quote-form-heading {
+  margin-bottom: 22px;
+}
+
+.quote-form-heading h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.8rem, 4vw, 2.55rem);
+  line-height: 1.08;
+}
+
+.quote-form-heading p,
+.quote-form-note {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.required-note,
+.required-mark {
+  color: var(--mint);
+  font-weight: 900;
+}
+
+.quote-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.quote-field {
+  display: grid;
+  gap: 8px;
+}
+
+.quote-field.full {
+  grid-column: 1 / -1;
+}
+
+.site-quote-form label,
+.site-quote-form legend {
+  color: var(--text);
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+
+.site-quote-form input,
+.site-quote-form select,
+.site-quote-form textarea {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid rgba(120, 216, 242, 0.22);
+  border-radius: var(--radius);
+  padding: 13px 14px;
+  color: var(--text);
+  background: rgba(5, 11, 18, 0.78);
+  font: inherit;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.site-quote-form textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.site-quote-form select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--sky) 50%),
+    linear-gradient(135deg, var(--sky) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 21px,
+    calc(100% - 14px) 21px;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 42px;
+}
+
+.site-quote-form option {
+  color: #001018;
+  background: var(--text);
+}
+
+.site-quote-form input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(1);
+  opacity: 0.86;
+}
+
+.site-quote-form input::placeholder,
+.site-quote-form textarea::placeholder {
+  color: rgba(182, 201, 213, 0.7);
+  font-weight: 700;
+}
+
+.site-quote-form input:focus,
+.site-quote-form select:focus,
+.site-quote-form textarea:focus {
+  border-color: var(--sky);
+  background: rgba(3, 7, 12, 0.94);
+  box-shadow: 0 0 0 4px rgba(0, 165, 207, 0.18);
+}
+
+.quote-field.has-error input,
+.quote-field.has-error select,
+.quote-field.has-error textarea {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.16);
+}
+
+.field-error {
+  color: #ff8a8a;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+.form-success {
+  margin: 0 0 18px;
+  border: 1px solid rgba(138, 240, 221, 0.45);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  color: #b9fff4;
+  background: rgba(43, 201, 184, 0.14);
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.site-quote-form.is-success > :not(.form-success) {
+  display: none;
+}
+
+.form-success strong,
+.form-success span {
+  display: block;
+}
+
+.form-success strong {
+  margin-bottom: 6px;
+  color: var(--text);
+  font-size: 1.15rem;
+}
+
+.form-success-button {
+  margin-top: 14px;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 11px 14px;
+  color: #001018;
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.form-success[hidden] {
+  display: none;
+}
+
+.form-failure {
+  margin: 0 0 18px;
+  border: 1px solid rgba(255, 107, 107, 0.45);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  color: #ffd0d0;
+  background: rgba(255, 107, 107, 0.13);
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.form-failure[hidden] {
+  display: none;
+}
+
+.site-quote-form .quote-submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.quote-choice-group {
+  grid-column: 1 / -1;
+  border: 0;
+}
+
+.quote-choice-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quote-choice-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid rgba(120, 216, 242, 0.22);
+  border-radius: var(--radius);
+  color: var(--muted);
+  background: rgba(5, 11, 18, 0.64);
+  font-weight: 900;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.quote-choice-option input {
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  padding: 0;
+  box-shadow: none;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+
+.quote-choice-option:has(input:checked),
+.quote-choice-option:hover {
+  border-color: rgba(138, 240, 221, 0.62);
+  color: var(--text);
+  background: rgba(0, 165, 207, 0.14);
+}
+
+.quote-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.site-quote-form .quote-submit {
+  min-width: 190px;
+  border: 0;
+  color: #001018;
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  box-shadow: 0 12px 28px rgba(0, 165, 207, 0.28);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.site-quote-form .quote-submit:hover {
+  box-shadow: 0 16px 34px rgba(0, 165, 207, 0.38);
+}
+
+.quote-form-note {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .quote-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .quote-section {
+    padding: 56px 0;
+  }
+
+  .site-quote-form {
+    padding: 22px;
+  }
+
+  .quote-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-choice-options {
+    flex-direction: column;
+  }
+
+  .site-quote-form .quote-submit {
+    width: 100%;
+  }
+}

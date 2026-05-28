@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FixIt & Flow Website</title>
+  <title>FixIt & Flow | Phone Repairs + Spreadsheet Help</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
@@ -122,21 +122,6 @@
       font-size: clamp(1.7rem, 4vw, 2.25rem);
       text-shadow: 0 0 22px rgba(0, 165, 207, 0.5);
       white-space: nowrap;
-    }
-
-    .header-logo {
-      display: inline-flex;
-      align-items: center;
-      flex: 0 0 auto;
-    }
-
-    .header-logo img {
-      display: block;
-      width: clamp(118px, 18vw, 168px);
-      height: auto;
-      border-radius: 50%;
-      object-fit: cover;
-      filter: drop-shadow(0 0 18px rgba(0, 165, 207, 0.35));
     }
 
     .nav-links {
@@ -326,17 +311,15 @@
     }
 
     .card-icon {
-      width: 64px;
-      height: 64px;
+      width: 58px;
+      height: 58px;
       display: grid;
       place-items: center;
       margin-bottom: 16px;
       border-radius: 50%;
       color: #001018;
       background: linear-gradient(135deg, var(--mint), var(--blue));
-      font-size: 0.82rem;
-      font-weight: 900;
-      letter-spacing: 0;
+      font-size: 1.8rem;
     }
 
     .card h3,
@@ -353,7 +336,7 @@
     }
 
     .check-list li::before {
-      content: "+";
+      content: "✓";
       margin-right: 8px;
       color: var(--mint);
       font-weight: 900;
@@ -554,10 +537,6 @@
         padding: 58px 0 56px;
       }
 
-      .header-logo img {
-        width: 132px;
-      }
-
       .hero-actions .button {
         width: 100%;
       }
@@ -584,17 +563,15 @@
   <div class="page">
     <header class="site-header" id="home">
       <nav class="container nav" aria-label="Main navigation">
-        <a class="header-logo" href="homepage with logo.html" aria-label="FixIt & Flow home">
-          <img src="fixit-flow-logo.jpeg" alt="Fix-it & Flow logo">
-        </a>
+        <a class="logo" href="#home">FixIt & Flow</a>
         <div class="nav-links">
-          <a href="homepage with logo.html">Home</a>
-          <a href="services.html">Services</a>
-          <a href="services.html#pricing">Pricing</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </div>
-        <a class="button button-primary" href="contact.html">Get a Free Quote</a>
+        <a class="button button-primary" href="#contact">Get a Free Quote</a>
       </nav>
     </header>
 
@@ -604,10 +581,10 @@
           <div>
             <span class="eyebrow">Local repairs + organized data</span>
             <h1>Fast Phone Repairs & Simple Spreadsheet Help</h1>
-            <p>FixIt & Flow helps with cracked screens, phone issues, messy data, and custom spreadsheets - fast, affordable, and easy to understand.</p>
+            <p>FixIt & Flow helps with cracked screens, phone issues, messy data, and custom spreadsheets — fast, affordable, and easy to understand.</p>
             <div class="hero-actions">
-              <a class="button button-primary" href="contact.html">Get a Free Quote</a>
-              <a class="button button-secondary" href="services.html">View Services</a>
+              <a class="button button-primary" href="#contact">Get a Free Quote</a>
+              <a class="button button-secondary" href="#services">View Services</a>
             </div>
             <div class="badges">
               <span class="badge">Same-day repair options</span>
@@ -642,7 +619,7 @@
 
           <div class="card-grid">
             <article class="card">
-              <div class="card-icon">Phone</div>
+              <div class="card-icon">📱</div>
               <h3>Phone Repair</h3>
               <ul class="check-list">
                 <li>Screen repairs</li>
@@ -654,7 +631,7 @@
             </article>
 
             <article class="card">
-              <div class="card-icon">Data</div>
+              <div class="card-icon">📊</div>
               <h3>Data Entry & Spreadsheets</h3>
               <ul class="check-list">
                 <li>Spreadsheet cleanup</li>
@@ -706,22 +683,22 @@
           <div class="pricing-grid">
             <article class="price-card">
               <h3>Phone Repairs</h3>
-              <div class="price">$45-$220</div>
-              <p>Depending on the issue, phone model, parts, and difficulty.</p>
+              <div class="price">From $40</div>
+              <p>Depending on the issue and phone model.</p>
             </article>
             <article class="price-card featured">
               <h3>Data Entry</h3>
-              <div class="price">$20-$30/hr</div>
+              <div class="price">$15–$25/hr</div>
               <p>For cleanup, typing, sorting, and organizing information.</p>
             </article>
             <article class="price-card">
               <h3>Spreadsheet Templates</h3>
-              <div class="price">$35-$100</div>
+              <div class="price">From $25</div>
               <p>Simple trackers and business templates built around your needs.</p>
             </article>
           </div>
 
-          <p class="pricing-note">Final prices depend on parts, phone model, time, and difficulty. Customers receive a quote before work begins.</p>
+          <p class="pricing-note">Final prices depend on parts, time, and difficulty. Customers receive a quote before work begins.</p>
         </div>
       </section>
 
@@ -733,11 +710,11 @@
           </div>
 
           <div class="why-grid">
-            <article class="why-item"><span>1</span><strong>Fast and simple service</strong></article>
-            <article class="why-item"><span>2</span><strong>Clear quotes before work starts</strong></article>
-            <article class="why-item"><span>3</span><strong>Local and beginner-friendly</strong></article>
-            <article class="why-item"><span>4</span><strong>Affordable compared to big shops or agencies</strong></article>
-            <article class="why-item"><span>5</span><strong>Built for people and small businesses</strong></article>
+            <article class="why-item"><span>⚡</span><strong>Fast and simple service</strong></article>
+            <article class="why-item"><span>💬</span><strong>Clear quotes before work starts</strong></article>
+            <article class="why-item"><span>📍</span><strong>Local and beginner-friendly</strong></article>
+            <article class="why-item"><span>💵</span><strong>Affordable compared to big shops or agencies</strong></article>
+            <article class="why-item"><span>🤝</span><strong>Built for people and small businesses</strong></article>
           </div>
         </div>
       </section>
@@ -747,7 +724,7 @@
           <div class="cta-panel">
             <h2>Need a repair or spreadsheet help?</h2>
             <p>Send your issue and get a free quote.</p>
-            <a class="button button-light" href="contact.html">Contact FixIt & Flow</a>
+            <a class="button button-light" href="https://nmoreland51.github.io/my-business-card/">Contact FixIt & Flow</a>
           </div>
         </div>
       </section>
@@ -764,7 +741,3 @@
   </div>
 </body>
 </html>
-
-
-
-
