@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Research & Recommendation | FixIt & Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #050b12;
+      --black-soft: #0a1420;
+      --panel: #0f2030;
+      --panel-light: #142a3e;
+      --blue: #00A5CF;
+      --blue-deep: #006f9e;
+      --sky: #78d8f2;
+      --mint: #8af0dd;
+      --coral: #ff9b73;
+      --gold: #ffd166;
+      --text: #f4fbff;
+      --muted: #b6c9d5;
+      --line: rgba(120, 216, 242, 0.22);
+      --danger: #ff7b7b;
+      --success: #91f5c1;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Nunito", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(0, 165, 207, 0.28), transparent 30rem),
+        radial-gradient(circle at 90% 8%, rgba(255, 209, 102, 0.11), transparent 28rem),
+        linear-gradient(180deg, #08131e 0%, var(--black) 42%, #03070c 100%);
+      line-height: 1.6;
+      padding: 10px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      border: 10px solid transparent;
+      border-image: linear-gradient(270deg, #ff4f9a, #ffb347, #fff56a, #54f4a8, #00A5CF, #7a6cff, #ff4f9a) 1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .page {
+      overflow: hidden;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(0, 165, 207, 0.08), rgba(0, 0, 0, 0) 28rem),
+        var(--black);
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(5, 11, 18, 0.9);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 24px;
+    }
+
+    .header-logo {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .header-logo img {
+      display: block;
+      width: clamp(118px, 18vw, 168px);
+      height: auto;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: drop-shadow(0 0 18px rgba(0, 165, 207, 0.35));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .nav-links a {
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--sky);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      color: #001018;
+      background: linear-gradient(135deg, var(--sky), var(--blue));
+      box-shadow: 0 12px 28px rgba(0, 165, 207, 0.28);
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(0, 165, 207, 0.38);
+    }
+
+    .button-secondary {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: none;
+    }
+
+    .hero {
+      padding: 72px 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 34px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 14px;
+      color: var(--mint);
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 680px;
+      font-size: clamp(2.45rem, 5vw, 4.8rem);
+      line-height: 1;
+    }
+
+    .hero p {
+      max-width: 660px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.14rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-panel,
+    .card,
+    .tool-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 118px;
+      padding: 18px;
+      border: 1px solid rgba(120, 216, 242, 0.16);
+      border-radius: var(--radius);
+      background: rgba(5, 11, 18, 0.62);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--sky);
+      font-size: 1.9rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .section {
+      padding: 52px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.75rem, 3vw, 2.7rem);
+      line-height: 1.1;
+    }
+
+    .section-heading p {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .dashboard-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .dashboard-nav a {
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      font-weight: 900;
+      transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .dashboard-nav a:hover {
+      border-color: rgba(120, 216, 242, 0.5);
+      color: var(--sky);
+      transform: translateY(-2px);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.five {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .card,
+    .tool-card {
+      padding: 22px;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .card:hover,
+    .tool-card:hover {
+      border-color: rgba(120, 216, 242, 0.45);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03));
+      transform: translateY(-3px);
+    }
+
+    .card h3,
+    .tool-card h3 {
+      margin-bottom: 10px;
+      color: var(--sky);
+      font-size: 1.2rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag,
+    .match-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 10px;
+      border: 1px solid rgba(120, 216, 242, 0.18);
+      border-radius: var(--radius);
+      color: var(--text);
+      background: rgba(0, 165, 207, 0.11);
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .match-card {
+      display: grid;
+      gap: 10px;
+    }
+
+    .match-card strong {
+      color: var(--text);
+      font-size: 1.04rem;
+    }
+
+    .match-arrow {
+      color: var(--coral);
+      font-weight: 900;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label,
+    legend {
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid rgba(120, 216, 242, 0.25);
+      border-radius: var(--radius);
+      color: var(--text);
+      background: rgba(5, 11, 18, 0.84);
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    select option {
+      color: #07111c;
+      background: #f5fbff;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 4px rgba(120, 216, 242, 0.12);
+    }
+
+    .error {
+      min-height: 18px;
+      color: var(--danger);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .success {
+      padding: 12px 14px;
+      border: 1px solid rgba(145, 245, 193, 0.35);
+      border-radius: var(--radius);
+      color: var(--success);
+      background: rgba(145, 245, 193, 0.08);
+      font-weight: 900;
+    }
+
+    .success[hidden],
+    .result[hidden],
+    .error[hidden] {
+      display: none;
+    }
+
+    .workflow-list,
+    .setup-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .workflow-item,
+    .setup-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid rgba(120, 216, 242, 0.15);
+      border-radius: var(--radius);
+      background: rgba(5, 11, 18, 0.56);
+      font-weight: 900;
+    }
+
+    .workflow-item input,
+    .setup-item input {
+      width: 20px;
+      min-height: 20px;
+      accent-color: var(--blue);
+    }
+
+    .progress-shell {
+      overflow: hidden;
+      height: 14px;
+      border: 1px solid rgba(120, 216, 242, 0.2);
+      border-radius: 999px;
+      background: rgba(5, 11, 18, 0.8);
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--coral), var(--gold), var(--mint), var(--sky));
+      transition: width 220ms ease;
+    }
+
+    .progress-label {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 900;
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid rgba(120, 216, 242, 0.2);
+      border-radius: var(--radius);
+      background: rgba(5, 11, 18, 0.58);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(120, 216, 242, 0.16);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .comparison-table th {
+      color: var(--sky);
+      background: rgba(0, 165, 207, 0.12);
+      font-size: 0.92rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .calc-line {
+      padding: 12px;
+      border: 1px solid rgba(120, 216, 242, 0.14);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .calc-line strong {
+      display: block;
+      color: var(--sky);
+      font-size: 1.25rem;
+    }
+
+    .calc-total {
+      grid-column: 1 / -1;
+      border-color: rgba(145, 245, 193, 0.32);
+      color: var(--success);
+    }
+
+    .recommendation-output {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .recommendation-output .calc-line:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .submission-draft {
+      margin-top: 14px;
+      padding: 16px;
+      border: 1px solid rgba(145, 245, 193, 0.28);
+      border-radius: var(--radius);
+      color: var(--text);
+      background: rgba(5, 11, 18, 0.72);
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 940px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-grid,
+      .grid.two,
+      .grid.three,
+      .grid.five,
+      .form-grid,
+      .recommendation-output {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .metric-grid,
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      body {
+        padding: 0;
+      }
+
+      body::before {
+        border-width: 6px;
+      }
+
+      .page {
+        border-radius: 0;
+      }
+
+      .container {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-actions .button,
+      .nav .button {
+        width: 100%;
+      }
+
+      .card,
+      .tool-card,
+      .hero-panel {
+        padding: 18px;
+      }
+
+      .comparison-table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <nav class="container nav" aria-label="Main navigation">
+        <a class="header-logo" href="index.html" aria-label="FixIt & Flow home">
+          <img src="fixit-flow-logo.jpeg" alt="Fix-it & Flow logo">
+        </a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="services.html#pricing">Pricing</a>
+          <a href="platform-research.html" class="active">Platforms</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <a class="button" href="contact.html#quote-request">Get a Free Quote</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">Research dashboard</span>
+            <h1>Platform Research & Recommendation</h1>
+            <p>Compare tools, estimate costs, track setup readiness, and turn business needs into a clear platform recommendation.</p>
+            <div class="hero-actions">
+              <a class="button" href="#comparison">Compare Platforms</a>
+              <a class="button button-secondary" href="#recommendation">Get Recommendation</a>
+            </div>
+            <div class="dashboard-nav" aria-label="Dashboard sections">
+              <a href="#reflection">Reflection</a>
+              <a href="#categories">Categories</a>
+              <a href="#matching">Matching</a>
+              <a href="#workflow">Workflow</a>
+              <a href="#comparison">Comparison</a>
+              <a href="#calculator">Calculator</a>
+              <a href="#setup">Setup</a>
+              <a href="#needs-doc">Needs Doc</a>
+              <a href="#recommendation">Recommendation</a>
+            </div>
+          </div>
+          <aside class="hero-panel" aria-label="Dashboard highlights">
+            <div class="metric-grid">
+              <div class="metric">
+                <strong>5</strong>
+                <span>platform categories</span>
+              </div>
+              <div class="metric">
+                <strong>18</strong>
+                <span>tools to review</span>
+              </div>
+              <div class="metric">
+                <strong>12</strong>
+                <span>setup requirements</span>
+              </div>
+              <div class="metric">
+                <strong>1</strong>
+                <span>clear recommendation</span>
+              </div>
+            </div>
+            <p class="note">Pricing and fees change. Use this dashboard to estimate, then verify final details on each platform's official site.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="needs-doc">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Assignment ready</span>
+              <h2>Business Needs Documentation</h2>
+            </div>
+            <p>Document one primary platform need, the specific problem, required features, budget, and business context for submission.</p>
+          </div>
+          <div class="tool-card">
+            <form class="dashboard-form" id="needs-doc-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="doc-business-name">Business Name</label>
+                  <input id="doc-business-name" name="Business Name" required placeholder="FixIt & Flow">
+                  <p class="error" id="doc-business-name-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="doc-business-type">Business Type</label>
+                  <input id="doc-business-type" name="Business Type" required placeholder="Local service business">
+                  <p class="error" id="doc-business-type-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="doc-primary-need">One Primary Platform Need</label>
+                  <select id="doc-primary-need" name="One Primary Platform Need" required>
+                    <option value="">Choose one primary need</option>
+                    <option>Payments</option>
+                    <option>Booking</option>
+                    <option>E-commerce</option>
+                    <option>Invoicing</option>
+                    <option>Communication</option>
+                  </select>
+                  <p class="error" id="doc-primary-need-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="doc-problem">Specific Problem</label>
+                  <textarea id="doc-problem" name="Specific Problem" required placeholder="What can the business not do right now?"></textarea>
+                  <p class="error" id="doc-problem-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="doc-platform-job">What the Platform Must Do</label>
+                  <textarea id="doc-platform-job" name="What the Platform Must Do" required placeholder="Explain the job this platform needs to handle."></textarea>
+                  <p class="error" id="doc-platform-job-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="doc-feature-1">Must-Have Feature 1 + Reason</label>
+                  <textarea id="doc-feature-1" name="Must-Have Feature 1" required placeholder="Feature and why it matters"></textarea>
+                  <p class="error" id="doc-feature-1-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="doc-feature-2">Must-Have Feature 2 + Reason</label>
+                  <textarea id="doc-feature-2" name="Must-Have Feature 2" required placeholder="Feature and why it matters"></textarea>
+                  <p class="error" id="doc-feature-2-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="doc-feature-3">Must-Have Feature 3 + Reason</label>
+                  <textarea id="doc-feature-3" name="Must-Have Feature 3" required placeholder="Feature and why it matters"></textarea>
+                  <p class="error" id="doc-feature-3-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="doc-nice-features">Nice-to-Have Features</label>
+                  <textarea id="doc-nice-features" name="Nice-to-Have Features" required placeholder="Helpful features that are not required"></textarea>
+                  <p class="error" id="doc-nice-features-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="doc-budget">Budget Situation</label>
+                  <select id="doc-budget" name="Budget Situation" required>
+                    <option value="">Choose a budget situation</option>
+                    <option>Free tier needed</option>
+                    <option>Small monthly cost acceptable</option>
+                    <option>Flexible budget</option>
+                  </select>
+                  <p class="error" id="doc-budget-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="doc-budget-detail">Budget Detail</label>
+                  <textarea id="doc-budget-detail" name="Budget Detail" required placeholder="Explain what the business can afford and why."></textarea>
+                  <p class="error" id="doc-budget-detail-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="doc-context">Business Context</label>
+                  <textarea id="doc-context" name="Business Context" required placeholder="Explain who the business serves, how it works, and why this need matters now."></textarea>
+                  <p class="error" id="doc-context-error" aria-live="polite"></p>
+                </div>
+              </div>
+              <button class="button" type="submit">Generate Submission Draft</button>
+              <p class="success" hidden></p>
+            </form>
+            <div class="result" id="needs-doc-result" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="reflection">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 1</span>
+              <h2>Business Reflection</h2>
+            </div>
+            <p>Start with what is working, what is missing, and which category deserves research first.</p>
+          </div>
+          <div class="tool-card">
+            <form class="dashboard-form" id="reflection-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="celebrate">Celebrate</label>
+                  <textarea id="celebrate" name="Celebrate" required placeholder="What is already working well?"></textarea>
+                  <p class="error" id="celebrate-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="gap">Gap</label>
+                  <textarea id="gap" name="Gap" required placeholder="What is slowing the business down?"></textarea>
+                  <p class="error" id="gap-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="category">Category</label>
+                  <select id="category" name="Category" required>
+                    <option value="">Choose a category</option>
+                    <option>Payments</option>
+                    <option>Booking</option>
+                    <option>E-commerce</option>
+                    <option>Invoicing</option>
+                    <option>Communication</option>
+                  </select>
+                  <p class="error" id="category-error" aria-live="polite"></p>
+                </div>
+              </div>
+              <button class="button" type="submit">Save Reflection</button>
+              <p class="success" hidden></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="categories">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 2</span>
+              <h2>Platform Categories</h2>
+            </div>
+            <p>Scan common tools by the business problem they solve.</p>
+          </div>
+          <div class="grid five">
+            <article class="card">
+              <h3>Payments</h3>
+              <div class="tag-list">
+                <span class="tag">Square</span>
+                <span class="tag">Stripe</span>
+                <span class="tag">PayPal</span>
+                <span class="tag">Venmo Business</span>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Booking</h3>
+              <div class="tag-list">
+                <span class="tag">Calendly</span>
+                <span class="tag">Acuity</span>
+                <span class="tag">Square Appointments</span>
+                <span class="tag">Setmore</span>
+              </div>
+            </article>
+            <article class="card">
+              <h3>E-commerce</h3>
+              <div class="tag-list">
+                <span class="tag">Etsy</span>
+                <span class="tag">Shopify</span>
+                <span class="tag">Gumroad</span>
+                <span class="tag">Square Online</span>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Invoicing</h3>
+              <div class="tag-list">
+                <span class="tag">Wave</span>
+                <span class="tag">Square Invoices</span>
+                <span class="tag">PayPal Invoicing</span>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Communication</h3>
+              <div class="tag-list">
+                <span class="tag">Google Voice</span>
+                <span class="tag">WhatsApp Business</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="matching">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 3</span>
+              <h2>Business Type Matching</h2>
+            </div>
+            <p>Match everyday small-business models to the first tools they usually need.</p>
+          </div>
+          <div class="grid three">
+            <article class="card match-card"><strong>Hair Braiding</strong><span class="match-arrow">&rarr;</span><span class="match-tag">Booking + Payments</span></article>
+            <article class="card match-card"><strong>Lawn Care</strong><span class="match-arrow">&rarr;</span><span class="match-tag">Scheduling + Payments</span></article>
+            <article class="card match-card"><strong>Tutoring</strong><span class="match-arrow">&rarr;</span><span class="match-tag">Scheduling + Video Calls</span></article>
+            <article class="card match-card"><strong>Baking/Catering</strong><span class="match-arrow">&rarr;</span><span class="match-tag">Orders + Payments</span></article>
+            <article class="card match-card"><strong>Photography</strong><span class="match-arrow">&rarr;</span><span class="match-tag">Booking + Contracts</span></article>
+            <article class="card match-card"><strong>Clothing/Dropshipping</strong><span class="match-arrow">&rarr;</span><span class="match-tag">E-commerce</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="workflow">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 4</span>
+              <h2>Research Workflow</h2>
+            </div>
+            <p>Use the checklist to move from a rough idea to a verified recommendation.</p>
+          </div>
+          <div class="tool-card">
+            <div class="workflow-list" data-progress-group="workflow">
+              <label class="workflow-item"><input type="checkbox"> Discover Options</label>
+              <label class="workflow-item"><input type="checkbox"> Compare Platforms</label>
+              <label class="workflow-item"><input type="checkbox"> Deep Dive</label>
+              <label class="workflow-item"><input type="checkbox"> Verify Pricing</label>
+              <label class="workflow-item"><input type="checkbox"> Make Recommendation</label>
+            </div>
+            <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="workflow-progress"></div></div>
+            <p class="progress-label" id="workflow-progress-label">0% complete</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="comparison">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 5</span>
+              <h2>Platform Comparison</h2>
+            </div>
+            <p>Compare two platforms side by side for the selected business type.</p>
+          </div>
+          <div class="tool-card">
+            <form class="dashboard-form" id="comparison-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="platform-a">Platform A</label>
+                  <select id="platform-a" name="Platform A" required></select>
+                  <p class="error" id="platform-a-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="platform-b">Platform B</label>
+                  <select id="platform-b" name="Platform B" required></select>
+                  <p class="error" id="platform-b-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="comparison-business">Business Type</label>
+                  <select id="comparison-business" name="Business Type" required>
+                    <option value="">Choose a business type</option>
+                    <option>Hair Braiding</option>
+                    <option>Lawn Care</option>
+                    <option>Tutoring</option>
+                    <option>Baking/Catering</option>
+                    <option>Photography</option>
+                    <option>Clothing/Dropshipping</option>
+                  </select>
+                  <p class="error" id="comparison-business-error" aria-live="polite"></p>
+                </div>
+              </div>
+              <button class="button" type="submit">Generate Comparison</button>
+              <p class="success" hidden></p>
+            </form>
+            <div class="result" id="comparison-result" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="calculator">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 6</span>
+              <h2>Pricing Calculator</h2>
+            </div>
+            <p>Estimate monthly platform cost from sales, transaction size, fee percentage, per-transaction fee, and subscription.</p>
+          </div>
+          <div class="tool-card">
+            <form class="dashboard-form" id="calculator-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="monthly-sales">Monthly Sales</label>
+                  <input id="monthly-sales" name="Monthly Sales" type="number" min="0.01" step="0.01" required placeholder="2500">
+                  <p class="error" id="monthly-sales-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="average-transaction">Average Transaction Amount</label>
+                  <input id="average-transaction" name="Average Transaction Amount" type="number" min="0.01" step="0.01" required placeholder="50">
+                  <p class="error" id="average-transaction-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="fee-percent">Transaction Fee %</label>
+                  <input id="fee-percent" name="Transaction Fee %" type="number" min="0" step="0.01" required placeholder="2.9">
+                  <p class="error" id="fee-percent-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="per-transaction-fee">Per Transaction Fee</label>
+                  <input id="per-transaction-fee" name="Per Transaction Fee" type="number" min="0" step="0.01" required placeholder="0.30">
+                  <p class="error" id="per-transaction-fee-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="subscription-fee">Monthly Subscription Fee</label>
+                  <input id="subscription-fee" name="Monthly Subscription Fee" type="number" min="0" step="0.01" required placeholder="0">
+                  <p class="error" id="subscription-fee-error" aria-live="polite"></p>
+                </div>
+              </div>
+              <button class="button" type="submit">Calculate Cost</button>
+              <p class="success" hidden></p>
+            </form>
+            <div class="result" id="calculator-result" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="setup">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 7</span>
+              <h2>Setup Requirements Checklist</h2>
+            </div>
+            <p>Track the items most platforms request before payments, booking, storefronts, or invoices go live.</p>
+          </div>
+          <div class="tool-card">
+            <div class="setup-grid grid three" data-progress-group="setup">
+              <label class="setup-item"><input type="checkbox"> Email</label>
+              <label class="setup-item"><input type="checkbox"> Phone Number</label>
+              <label class="setup-item"><input type="checkbox"> Legal Name</label>
+              <label class="setup-item"><input type="checkbox"> Business Name</label>
+              <label class="setup-item"><input type="checkbox"> Address</label>
+              <label class="setup-item"><input type="checkbox"> Bank Account</label>
+              <label class="setup-item"><input type="checkbox"> Government ID</label>
+              <label class="setup-item"><input type="checkbox"> SSN/EIN</label>
+              <label class="setup-item"><input type="checkbox"> Date of Birth</label>
+              <label class="setup-item"><input type="checkbox"> Logo</label>
+              <label class="setup-item"><input type="checkbox"> Business Description</label>
+              <label class="setup-item"><input type="checkbox"> Website URL</label>
+            </div>
+            <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="setup-progress"></div></div>
+            <p class="progress-label" id="setup-progress-label">0% complete</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="recommendation">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Step 8</span>
+              <h2>Platform Recommendation</h2>
+            </div>
+            <p>Generate a practical starting point based on business type, budget, and the main need.</p>
+          </div>
+          <div class="tool-card">
+            <form class="dashboard-form" id="recommendation-form" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="recommendation-business">Business Type</label>
+                  <select id="recommendation-business" name="Business Type" required>
+                    <option value="">Choose a business type</option>
+                    <option>Hair Braiding</option>
+                    <option>Lawn Care</option>
+                    <option>Tutoring</option>
+                    <option>Baking/Catering</option>
+                    <option>Photography</option>
+                    <option>Clothing/Dropshipping</option>
+                  </select>
+                  <p class="error" id="recommendation-business-error" aria-live="polite"></p>
+                </div>
+                <div class="field">
+                  <label for="budget">Budget</label>
+                  <input id="budget" name="Budget" type="number" min="0" step="1" required placeholder="50">
+                  <p class="error" id="budget-error" aria-live="polite"></p>
+                </div>
+                <div class="field full">
+                  <label for="main-need">Main Need</label>
+                  <select id="main-need" name="Main Need" required>
+                    <option value="">Choose a main need</option>
+                    <option>Payments</option>
+                    <option>Booking</option>
+                    <option>E-commerce</option>
+                    <option>Invoicing</option>
+                    <option>Communication</option>
+                    <option>Low-cost launch</option>
+                    <option>Mobile-friendly setup</option>
+                  </select>
+                  <p class="error" id="main-need-error" aria-live="polite"></p>
+                </div>
+              </div>
+              <button class="button" type="submit">Generate Recommendation</button>
+              <p class="success" hidden></p>
+            </form>
+            <div class="result" id="recommendation-result" hidden></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+      const percent = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
+
+      const platformData = {
+        "Square": {
+          freeTier: "Free account available for basic payment collection.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Card and transfer fees vary. Verify current rates before launch.",
+          pros: "Strong in-person payments, simple dashboard, good small-business fit.",
+          cons: "Advanced features can require paid add-ons."
+        },
+        "Stripe": {
+          freeTier: "No monthly fee for core payment processing.",
+          difficulty: "Medium",
+          mobile: "Limited dashboard support",
+          fees: "Payment processing fees vary by method and region.",
+          pros: "Flexible, developer-friendly, strong online checkout options.",
+          cons: "May feel technical for a non-technical owner."
+        },
+        "PayPal": {
+          freeTier: "Free account available for sending invoices and accepting payments.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Fees vary by payment type, currency, and account settings.",
+          pros: "Familiar to customers, quick setup, useful invoice tools.",
+          cons: "Fee structure can be hard to compare."
+        },
+        "Venmo Business": {
+          freeTier: "Business profile can start without a monthly subscription.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Business payment fees vary. Verify current Venmo terms.",
+          pros: "Casual mobile payments, familiar for local service customers.",
+          cons: "Less complete for formal operations and reporting."
+        },
+        "Calendly": {
+          freeTier: "Free scheduling tier available for simple booking.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Subscription fees vary by plan; payment fees depend on processor.",
+          pros: "Fast scheduling setup, reminders, clean booking links.",
+          cons: "Payments and advanced workflows may need upgrades."
+        },
+        "Acuity": {
+          freeTier: "Trial or limited entry options may be available.",
+          difficulty: "Medium",
+          mobile: "Yes",
+          fees: "Subscription and processor fees vary by setup.",
+          pros: "Strong appointment rules, forms, and client intake.",
+          cons: "More setup than a simple booking link."
+        },
+        "Square Appointments": {
+          freeTier: "Entry plan may support solo scheduling and payments.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Payment processing and plan fees vary.",
+          pros: "Booking and payments in one place, good for local services.",
+          cons: "Paid plans may be needed as team or location needs grow."
+        },
+        "Setmore": {
+          freeTier: "Free scheduling plan available for basic appointment booking.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Paid plans and payment processor fees vary.",
+          pros: "Simple appointment setup, useful reminders, approachable interface.",
+          cons: "Advanced payment and integration needs may require upgrades."
+        },
+        "Etsy": {
+          freeTier: "No monthly storefront subscription required for basic selling.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Listing, transaction, and payment fees vary by sale.",
+          pros: "Built-in buyer marketplace for handmade or niche products.",
+          cons: "Marketplace fees and competition can reduce margins."
+        },
+        "Shopify": {
+          freeTier: "Trial or starter options may be available.",
+          difficulty: "Medium",
+          mobile: "Yes",
+          fees: "Monthly plan and payment fees vary.",
+          pros: "Complete online store, inventory, themes, and growth tools.",
+          cons: "Monthly cost can be too much for a tiny test launch."
+        },
+        "Gumroad": {
+          freeTier: "Can start selling without a traditional monthly store fee.",
+          difficulty: "Easy",
+          mobile: "Limited seller tools",
+          fees: "Platform and payment fees vary by sale.",
+          pros: "Quick product setup, good for digital goods or simple offers.",
+          cons: "Less control than a full storefront."
+        },
+        "Square Online": {
+          freeTier: "Free or entry storefront options may be available.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Processing and plan fees vary by feature level.",
+          pros: "Connects online ordering with Square payments.",
+          cons: "Design and advanced commerce features may need upgrades."
+        },
+        "Wave": {
+          freeTier: "Free accounting and invoicing tools may be available.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Payment processing and optional service fees vary.",
+          pros: "Good for invoices, income tracking, and simple books.",
+          cons: "Less focused on booking or storefront workflows."
+        },
+        "Square Invoices": {
+          freeTier: "Basic invoicing tools can start without a monthly subscription.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Payment processing and plan fees vary.",
+          pros: "Quick invoices, payment links, reminders, and Square payments.",
+          cons: "More advanced invoice features may require paid options."
+        },
+        "PayPal Invoicing": {
+          freeTier: "Invoice creation available from a PayPal business account.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Payment fees vary by transaction type.",
+          pros: "Fast invoice sending and familiar payment experience.",
+          cons: "Not a complete booking or commerce platform."
+        },
+        "Google Voice": {
+          freeTier: "Consumer options may be available; business plans vary.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Business phone plan pricing varies.",
+          pros: "Separate business number, voicemail, call forwarding.",
+          cons: "Does not handle payments, booking, or invoicing."
+        },
+        "WhatsApp Business": {
+          freeTier: "Free business app available for small operations.",
+          difficulty: "Easy",
+          mobile: "Yes",
+          fees: "Advanced messaging or API pricing varies.",
+          pros: "Fast customer messaging, profile details, labels, templates.",
+          cons: "Better for communication than full operations."
+        }
+      };
+
+      const recommendationRules = {
+        "Hair Braiding": {
+          platform: "Square Appointments",
+          why: "It connects booking and payments in one workflow for appointment-based beauty services.",
+          free: "Solo owners can often start with basic booking, client details, and payment collection.",
+          upgrade: "Upgrade when you add staff, need deposits, or want more automated reminders.",
+          costs: "Start with processor fees and verify whether your booking features require a paid plan."
+        },
+        "Lawn Care": {
+          platform: "Setmore",
+          why: "It keeps scheduling simple for repeat jobs while leaving payment choice flexible.",
+          free: "Free scheduling tools help test appointment volume before adding paid automation.",
+          upgrade: "Upgrade when you need recurring bookings, team calendars, or payment integrations.",
+          costs: "Expect low software cost at first plus payment fees from your chosen processor."
+        },
+        "Tutoring": {
+          platform: "Calendly",
+          why: "It is strong for scheduling sessions and can pair with video-call tools.",
+          free: "Free booking links are enough for a simple one-on-one tutoring workflow.",
+          upgrade: "Upgrade when you need multiple event types, reminders, or payment collection.",
+          costs: "Budget for scheduling upgrades only after free booking limits slow you down."
+        },
+        "Baking/Catering": {
+          platform: "Square Online",
+          why: "It supports product-style orders and connects naturally to payment collection.",
+          free: "Entry storefront tools can help test order flow before committing to a larger store.",
+          upgrade: "Upgrade when you need custom ordering rules, delivery options, or stronger inventory.",
+          costs: "Expect processing fees first; paid storefront features depend on order complexity."
+        },
+        "Photography": {
+          platform: "Acuity",
+          why: "It handles client booking details, intake forms, and appointment rules well.",
+          free: "Use entry options to test booking flow before building a full client portal.",
+          upgrade: "Upgrade when deposits, intake forms, multiple session types, or reminders become essential.",
+          costs: "Budget for a monthly scheduling plan plus payment processor fees if you take deposits."
+        },
+        "Clothing/Dropshipping": {
+          platform: "Shopify",
+          why: "It is built for e-commerce catalogs, checkout, inventory, and growth.",
+          free: "Use trial or starter options to validate products before building a larger storefront.",
+          upgrade: "Upgrade when sales are steady enough to need better store controls and integrations.",
+          costs: "Expect a monthly plan plus payment processing and any app costs."
+        }
+      };
+
+      const needFallbacks = {
+        "Payments": "Square",
+        "Booking": "Calendly",
+        "E-commerce": "Square Online",
+        "Invoicing": "Wave",
+        "Communication": "WhatsApp Business",
+        "Low-cost launch": "Setmore",
+        "Mobile-friendly setup": "Square"
+      };
+
+      function byId(id) {
+        return document.getElementById(id);
+      }
+
+      function escapeHtml(value) {
+        return value
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function setError(control, message) {
+        const error = byId(control.id + "-error");
+        control.setAttribute("aria-invalid", "true");
+        control.setAttribute("aria-describedby", control.id + "-error");
+        if (error) {
+          error.textContent = message;
+        }
+      }
+
+      function clearError(control) {
+        const error = byId(control.id + "-error");
+        control.removeAttribute("aria-invalid");
+        if (error) {
+          error.textContent = "";
+        }
+      }
+
+      function validateControl(control) {
+        const value = control.value.trim();
+        if (control.required && !value) {
+          setError(control, "This field is required.");
+          return false;
+        }
+        if (control.type === "number") {
+          const numberValue = Number(value);
+          const min = control.min === "" ? null : Number(control.min);
+          if (!Number.isFinite(numberValue)) {
+            setError(control, "Enter a valid number.");
+            return false;
+          }
+          if (min !== null && numberValue < min) {
+            setError(control, min === 0 ? "Enter 0 or more." : "Enter a number greater than 0.");
+            return false;
+          }
+        }
+        clearError(control);
+        return true;
+      }
+
+      function validateForm(form) {
+        const controls = Array.from(form.querySelectorAll("input, select, textarea"));
+        let firstInvalid = null;
+        controls.forEach((control) => {
+          if (!validateControl(control) && !firstInvalid) {
+            firstInvalid = control;
+          }
+        });
+        if (firstInvalid) {
+          firstInvalid.focus();
+          return false;
+        }
+        return true;
+      }
+
+      function showSuccess(form, message) {
+        const success = form.querySelector(".success");
+        if (!success) {
+          return;
+        }
+        success.hidden = false;
+        success.textContent = message;
+      }
+
+      function clearSuccess(form) {
+        const success = form.querySelector(".success");
+        if (success) {
+          success.hidden = true;
+          success.textContent = "";
+        }
+      }
+
+      function attachValidation(form) {
+        const controls = Array.from(form.querySelectorAll("input, select, textarea"));
+        controls.forEach((control) => {
+          control.addEventListener("input", () => {
+            clearSuccess(form);
+            if (control.getAttribute("aria-invalid") === "true") {
+              validateControl(control);
+            }
+          });
+          control.addEventListener("change", () => {
+            clearSuccess(form);
+            if (control.getAttribute("aria-invalid") === "true") {
+              validateControl(control);
+            }
+          });
+        });
+      }
+
+      function resetFormAfterSuccess(form) {
+        form.reset();
+        Array.from(form.querySelectorAll("input, select, textarea")).forEach(clearError);
+      }
+
+      function populatePlatformSelects() {
+        const options = ["", ...Object.keys(platformData)];
+        ["platform-a", "platform-b"].forEach((id) => {
+          const select = byId(id);
+          select.replaceChildren();
+          options.forEach((optionValue) => {
+            const option = document.createElement("option");
+            option.value = optionValue;
+            option.textContent = optionValue || "Choose a platform";
+            select.append(option);
+          });
+        });
+      }
+
+      function renderComparison(platformA, platformB, businessType) {
+        const rows = [
+          ["Free Tier", "freeTier"],
+          ["Setup Difficulty", "difficulty"],
+          ["Mobile App", "mobile"],
+          ["Transaction Fees", "fees"],
+          ["Pros", "pros"],
+          ["Cons", "cons"]
+        ];
+        const tableRows = rows.map(([label, key]) => `
+          <tr>
+            <th scope="row">${label}</th>
+            <td>${platformData[platformA][key]}</td>
+            <td>${platformData[platformB][key]}</td>
+          </tr>
+        `).join("");
+        byId("comparison-result").hidden = false;
+        byId("comparison-result").innerHTML = `
+          <p class="note">Comparison for <strong>${businessType}</strong>. Confirm official pricing before making a final decision.</p>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Criteria</th>
+                <th scope="col">${platformA}</th>
+                <th scope="col">${platformB}</th>
+              </tr>
+            </thead>
+            <tbody>${tableRows}</tbody>
+          </table>
+        `;
+      }
+
+      function renderCalculator(values) {
+        const transactions = values.sales / values.average;
+        const percentageFees = values.sales * (values.percentFee / 100);
+        const transactionFees = transactions * values.perTransaction;
+        const total = percentageFees + transactionFees + values.subscription;
+        byId("calculator-result").hidden = false;
+        byId("calculator-result").innerHTML = `
+          <div class="calc-grid">
+            <div class="calc-line"><span>Transactions</span><strong>${percent.format(transactions)}</strong></div>
+            <div class="calc-line"><span>Percentage fees</span><strong>${currency.format(percentageFees)}</strong></div>
+            <div class="calc-line"><span>Transaction fees</span><strong>${currency.format(transactionFees)}</strong></div>
+            <div class="calc-line"><span>Subscription</span><strong>${currency.format(values.subscription)}</strong></div>
+            <div class="calc-line calc-total"><span>Total monthly cost</span><strong>${currency.format(total)}</strong></div>
+          </div>
+        `;
+      }
+
+      function renderRecommendation(businessType, budget, mainNeed) {
+        const base = recommendationRules[businessType];
+        const fallbackPlatform = needFallbacks[mainNeed] || base.platform;
+        const platform = budget <= 25 && mainNeed !== "E-commerce" ? fallbackPlatform : base.platform;
+        const platformInfo = platformData[platform];
+        byId("recommendation-result").hidden = false;
+        byId("recommendation-result").innerHTML = `
+          <div class="recommendation-output">
+            <div class="calc-line"><span>Recommended Platform</span><strong>${platform}</strong></div>
+            <div class="calc-line"><span>Why it fits</span><p>${platform === base.platform ? base.why : platformInfo.pros}</p></div>
+            <div class="calc-line"><span>Free-tier benefits</span><p>${base.free}</p></div>
+            <div class="calc-line"><span>Upgrade triggers</span><p>${base.upgrade}</p></div>
+            <div class="calc-line"><span>Estimated costs</span><p>${base.costs} Budget entered: ${currency.format(budget)} per month.</p></div>
+          </div>
+        `;
+      }
+
+      function renderNeedsDocumentation(values) {
+        const draft = `Business Needs Documentation
+
+Business name and type:
+${values.businessName} is a ${values.businessType}.
+
+One primary platform need:
+${values.primaryNeed}
+
+Specific problem:
+${values.problem}
+
+What the platform needs to do:
+${values.platformJob}
+
+Must-have features:
+1. ${values.featureOne}
+2. ${values.featureTwo}
+3. ${values.featureThree}
+
+Nice-to-have features:
+${values.niceFeatures}
+
+Budget situation:
+${values.budget}. ${values.budgetDetail}
+
+Business context:
+${values.context}`;
+
+        byId("needs-doc-result").hidden = false;
+        byId("needs-doc-result").innerHTML = `
+          <p class="note">Submission draft generated. Review it before submitting so it matches your exact business details.</p>
+          <div class="submission-draft">${escapeHtml(draft)}</div>
+        `;
+      }
+
+      function updateProgress(groupName, barId, labelId) {
+        const group = document.querySelector(`[data-progress-group="${groupName}"]`);
+        const boxes = Array.from(group.querySelectorAll("input[type='checkbox']"));
+        const checked = boxes.filter((box) => box.checked).length;
+        const complete = boxes.length ? Math.round((checked / boxes.length) * 100) : 0;
+        byId(barId).style.width = complete + "%";
+        byId(labelId).textContent = `${complete}% complete (${checked} of ${boxes.length})`;
+      }
+
+      function attachProgress(groupName, barId, labelId) {
+        const group = document.querySelector(`[data-progress-group="${groupName}"]`);
+        group.addEventListener("change", () => updateProgress(groupName, barId, labelId));
+        updateProgress(groupName, barId, labelId);
+      }
+
+      populatePlatformSelects();
+      attachProgress("workflow", "workflow-progress", "workflow-progress-label");
+      attachProgress("setup", "setup-progress", "setup-progress-label");
+
+      document.querySelectorAll(".dashboard-form").forEach(attachValidation);
+
+      byId("reflection-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!validateForm(form)) {
+          return;
+        }
+        const selectedCategory = byId("category").value;
+        resetFormAfterSuccess(form);
+        showSuccess(form, `Reflection saved. Start research with ${selectedCategory}.`);
+      });
+
+      byId("needs-doc-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!validateForm(form)) {
+          return;
+        }
+        renderNeedsDocumentation({
+          businessName: byId("doc-business-name").value.trim(),
+          businessType: byId("doc-business-type").value.trim(),
+          primaryNeed: byId("doc-primary-need").value,
+          problem: byId("doc-problem").value.trim(),
+          platformJob: byId("doc-platform-job").value.trim(),
+          featureOne: byId("doc-feature-1").value.trim(),
+          featureTwo: byId("doc-feature-2").value.trim(),
+          featureThree: byId("doc-feature-3").value.trim(),
+          niceFeatures: byId("doc-nice-features").value.trim(),
+          budget: byId("doc-budget").value,
+          budgetDetail: byId("doc-budget-detail").value.trim(),
+          context: byId("doc-context").value.trim()
+        });
+        resetFormAfterSuccess(form);
+        showSuccess(form, "Business needs documentation draft generated successfully.");
+      });
+
+      byId("comparison-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!validateForm(form)) {
+          return;
+        }
+        const platformA = byId("platform-a").value;
+        const platformB = byId("platform-b").value;
+        if (platformA === platformB) {
+          setError(byId("platform-b"), "Choose a different second platform.");
+          byId("platform-b").focus();
+          return;
+        }
+        const businessType = byId("comparison-business").value;
+        renderComparison(platformA, platformB, businessType);
+        resetFormAfterSuccess(form);
+        showSuccess(form, "Comparison generated successfully.");
+      });
+
+      byId("calculator-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!validateForm(form)) {
+          return;
+        }
+        const values = {
+          sales: Number(byId("monthly-sales").value),
+          average: Number(byId("average-transaction").value),
+          percentFee: Number(byId("fee-percent").value),
+          perTransaction: Number(byId("per-transaction-fee").value),
+          subscription: Number(byId("subscription-fee").value)
+        };
+        renderCalculator(values);
+        resetFormAfterSuccess(form);
+        showSuccess(form, "Pricing estimate calculated successfully.");
+      });
+
+      byId("recommendation-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!validateForm(form)) {
+          return;
+        }
+        const businessType = byId("recommendation-business").value;
+        const budget = Number(byId("budget").value);
+        const mainNeed = byId("main-need").value;
+        renderRecommendation(businessType, budget, mainNeed);
+        resetFormAfterSuccess(form);
+        showSuccess(form, "Recommendation generated successfully.");
+      });
+    })();
+  </script>
+</body>
+</html>
